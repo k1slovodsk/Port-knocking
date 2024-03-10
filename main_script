@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Определить последовательность портов для port knocking
+PORT_SEQUENCE=(7000 8000 9000)
+
+# Указать адрес машины
+TARGET_IP="192.168.1.1"
+
+# Постучать по каждому порту, в соответствии с 
+for PORT in "${PORT_SEQUENCE[@]}"; do
+  # Для кнокинга используется 
+  nmap -Pn --host-timeout 201 --max-retries 0 -p $PORT $TARGET_IP
+  sleep 1
+done
+echo "Port knocking завершен успешно"
